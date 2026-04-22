@@ -1,11 +1,12 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Simulador de compromiso 101% con diagnóstico, radar de dimensiones y correo automático."
+      content="Simulador de compromiso 101% con diagnóstico interactivo y correo automático."
     />
     <title>Simulador de Compromiso | Feria de las Habilidades</title>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -132,7 +133,7 @@
             <div class="rounded-lg bg-white p-5 text-ink">
               <p class="text-xs font-black uppercase text-coral">Cómo usarlo en la feria</p>
               <p class="mt-3 text-sm font-bold leading-7 text-steel">
-                Una persona responde el diagnóstico, observa su radar, recibe una interpretación y puede enviarse el resultado con un reto de acción.
+                Una persona responde el diagnóstico, compara sus dimensiones, recibe una interpretación y puede enviarse el resultado con un reto de acción.
               </p>
             </div>
             <div class="grid gap-3 sm:grid-cols-3">
@@ -200,25 +201,10 @@
             </div>
 
             <div class="mt-5 rounded-lg bg-white/[0.08] p-4">
-              <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <p class="text-sm font-black text-white">Radar de dimensiones</p>
-                <p id="radarSummary" class="text-xs font-bold text-slate-300">Cumplimiento lidera; comunicación es la oportunidad de mejora</p>
-              </div>
-              <svg id="commitmentRadar" class="mt-3 h-56 w-full" viewBox="0 0 260 220" role="img" aria-label="Gráfica radar del diagnóstico de compromiso">
-                <polygon points="130,24 222,178 38,178" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"></polygon>
-                <polygon points="130,76 176,153 84,153" fill="none" stroke="rgba(255,255,255,0.13)" stroke-width="1"></polygon>
-                <polygon points="130,128 148,143 112,143" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"></polygon>
-                <line x1="130" y1="128" x2="130" y2="24" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
-                <line x1="130" y1="128" x2="222" y2="178" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
-                <line x1="130" y1="128" x2="38" y2="178" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
-                <polygon id="radarShape" points="" fill="rgba(31,157,120,0.38)" stroke="#1F9D78" stroke-width="3"></polygon>
-                <circle id="radarPointFulfillment" r="4.5" fill="#F2B84B"></circle>
-                <circle id="radarPointCommunication" r="4.5" fill="#34A7C1"></circle>
-                <circle id="radarPointValue" r="4.5" fill="#E6695B"></circle>
-                <text x="130" y="15" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="800">Cumplimiento</text>
-                <text x="234" y="193" text-anchor="end" fill="#ffffff" font-size="12" font-weight="800">Comunicación</text>
-                <text x="26" y="193" text-anchor="start" fill="#ffffff" font-size="12" font-weight="800">Valor agregado</text>
-              </svg>
+              <p class="text-sm font-black text-white">Radar exclusivo del correo</p>
+              <p class="mt-2 text-sm font-bold leading-7 text-slate-300">
+                Aquí ajusta cumplimiento, comunicación y valor agregado. Cuando envíe el resultado, el correo incluirá el radar comparativo con sus tres dimensiones.
+              </p>
             </div>
 
             <div class="mt-6 grid gap-3 sm:grid-cols-3">
@@ -265,7 +251,7 @@
             </div>
 
             <p class="mt-5 text-sm font-bold leading-7 text-steel">
-              El correo incluye el reto sugerido, el índice final, las tres dimensiones del radar y los hábitos marcados.
+              El correo incluye el reto sugerido, el índice final, el radar comparativo, la imagen recordatoria y los hábitos marcados.
             </p>
 
             <form id="commitmentForm" class="mt-7">
@@ -365,19 +351,6 @@
       const panelChallenge = document.querySelector("#panelChallenge");
       const panelChallengeText = document.querySelector("#panelChallengeText");
       const resetDiagnosis = document.querySelector("#resetDiagnosis");
-      const radarShape = document.querySelector("#radarShape");
-      const radarSummary = document.querySelector("#radarSummary");
-      const radarPoints = {
-        fulfillment: document.querySelector("#radarPointFulfillment"),
-        communication: document.querySelector("#radarPointCommunication"),
-        value: document.querySelector("#radarPointValue"),
-      };
-      const radarAxes = {
-        fulfillment: { x: 130, y: 24 },
-        communication: { x: 222, y: 178 },
-        value: { x: 38, y: 178 },
-      };
-      const radarCenter = { x: 130, y: 128 };
 
       function randomTask() {
         return commitmentTasks[Math.floor(Math.random() * commitmentTasks.length)];
@@ -419,40 +392,6 @@
         };
       }
 
-      function pointOnRadar(axis, value) {
-        const percent = Math.max(0, Math.min(100, value)) / 100;
-        return {
-          x: radarCenter.x + (radarAxes[axis].x - radarCenter.x) * percent,
-          y: radarCenter.y + (radarAxes[axis].y - radarCenter.y) * percent,
-        };
-      }
-
-      function updateRadar(values) {
-        const fulfillmentPoint = pointOnRadar("fulfillment", values.fulfillment);
-        const communicationPoint = pointOnRadar("communication", values.communication);
-        const valuePoint = pointOnRadar("value", values.value);
-        const polygon = [fulfillmentPoint, communicationPoint, valuePoint]
-          .map((point) => `${point.x.toFixed(1)},${point.y.toFixed(1)}`)
-          .join(" ");
-
-        radarShape.setAttribute("points", polygon);
-        radarPoints.fulfillment.setAttribute("cx", fulfillmentPoint.x);
-        radarPoints.fulfillment.setAttribute("cy", fulfillmentPoint.y);
-        radarPoints.communication.setAttribute("cx", communicationPoint.x);
-        radarPoints.communication.setAttribute("cy", communicationPoint.y);
-        radarPoints.value.setAttribute("cx", valuePoint.x);
-        radarPoints.value.setAttribute("cy", valuePoint.y);
-
-        const entries = [
-          ["Cumplimiento", values.fulfillment],
-          ["Comunicación", values.communication],
-          ["Valor agregado", values.value],
-        ];
-        const strongest = entries.reduce((best, item) => (item[1] > best[1] ? item : best), entries[0]);
-        const lowest = entries.reduce((low, item) => (item[1] < low[1] ? item : low), entries[0]);
-        radarSummary.textContent = `${strongest[0]} lidera; ${lowest[0]} es la oportunidad de mejora`;
-      }
-
       function updateCommitmentPanel() {
         const dimensions = getDimensionValues();
         const baseScore = commitmentRanges.reduce((total, input) => {
@@ -474,7 +413,6 @@
         scoreBadge.textContent = `${score}%`;
         scoreLabel.textContent = state.label;
         scoreInsight.textContent = state.insight;
-        updateRadar(dimensions);
         highlightCommitmentWords(scoreLabel);
         highlightCommitmentWords(scoreInsight);
       }

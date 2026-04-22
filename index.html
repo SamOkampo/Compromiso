@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Feria de las Habilidades: página informativa sobre el compromiso en administración."
+    />
+    <title>Compromiso | Feria de las Habilidades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ink: "#17202A",
+              graphite: "#2E4053",
+              steel: "#4F6275",
+              cloud: "#F4F7FA",
+              amber: "#F2B84B",
+              emerald: "#1F9D78",
+              coral: "#E6695B",
+              cyan: "#34A7C1",
+            },
+            boxShadow: {
+              soft: "0 18px 50px rgba(23, 32, 42, 0.12)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 14% 12%, rgba(242, 184, 75, 0.16), transparent 28rem),
+          linear-gradient(135deg, #f4f7fa 0%, #ffffff 44%, #eef5f3 100%);
+        color: #17202a;
+      }
+
+      .panel {
+        border: 1px solid rgba(79, 98, 117, 0.16);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(18px);
+      }
+
+      .glass-dark {
+        background:
+          linear-gradient(135deg, rgba(23, 32, 42, 0.96), rgba(46, 64, 83, 0.92)),
+          url("https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=80");
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: multiply;
+      }
+
+      .nav-link.is-active {
+        background: #17202a;
+        color: #ffffff;
+      }
+
+      .commitment-emphasis {
+        color: #f2b84b;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .glass-dark .commitment-emphasis,
+      .bg-ink .commitment-emphasis {
+        color: #f2b84b;
+      }
+
+      .case-card[hidden],
+      .lesson-empty[hidden] {
+        display: none;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .float-in {
+          animation: floatIn 720ms ease both;
+        }
+
+        @keyframes floatIn {
+          from {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans antialiased">
+    <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+        <a href="#inicio" class="flex min-w-0 items-center gap-3" aria-label="Ir al inicio">
+          <span class="flex h-12 w-12 shrink-0 items-center justify-center">
+            <img class="max-h-12 w-auto object-contain" src="assets/logo_unal.png" alt="Logo Universidad Nacional de Colombia" />
+          </span>
+          <span class="min-w-0">
+            <span class="block truncate text-sm font-black uppercase text-ink">Compromiso</span>
+            <span class="block truncate text-xs font-semibold text-steel">Feria de las Habilidades</span>
+          </span>
+        </a>
+
+        <button
+          id="menuButton"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-ink lg:hidden"
+          type="button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+
+        <div id="navLinks" class="hidden items-center gap-2 lg:flex">
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel transition hover:bg-slate-100" href="#definicion">Definición</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel transition hover:bg-slate-100" href="#servicio">Servicio</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel transition hover:bg-slate-100" href="#gestion">Gestión</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel transition hover:bg-slate-100" href="#dimensiones">Dimensiones</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel transition hover:bg-slate-100" href="#diccionario">Casos</a>
+          <a class="rounded-lg bg-amber px-4 py-2 text-sm font-black text-ink transition hover:brightness-95" href="simulador.html">Ingresar al simulador</a>
+        </div>
+      </nav>
+
+      <div id="mobilePanel" class="hidden border-t border-slate-200 bg-white px-4 py-3 lg:hidden">
+        <div class="grid gap-2">
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel" href="#definicion">Definición</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel" href="#servicio">Servicio</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel" href="#gestion">Gestión</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel" href="#dimensiones">Dimensiones</a>
+          <a class="nav-link rounded-lg px-3 py-2 text-sm font-bold text-steel" href="#diccionario">Casos</a>
+          <a class="rounded-lg bg-amber px-3 py-2 text-sm font-black text-ink" href="simulador.html">Ingresar al simulador</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="inicio" class="glass-dark overflow-hidden text-white">
+        <div class="mx-auto grid min-h-[86vh] max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 lg:grid-cols-[1.02fr_0.98fr] lg:px-8">
+          <div class="float-in max-w-3xl">
+            <div class="mb-6 inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-xs font-black uppercase text-amber">
+              <span class="h-2 w-2 rounded-full bg-emerald"></span>
+              Administración con palabra cumplida
+            </div>
+            <h1 class="text-4xl font-black leading-tight text-white sm:text-5xl lg:text-7xl">
+              ¿Está listo para dar el 101% hoy?
+            </h1>
+            <p class="mt-6 max-w-2xl text-base leading-8 text-slate-200 sm:text-lg">
+              El compromiso es la decisión visible de cumplir acuerdos, sostener responsabilidades y agregar valor cuando el equipo más lo necesita.
+            </p>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a class="inline-flex items-center justify-center rounded-lg bg-amber px-5 py-3 text-sm font-black text-ink transition hover:brightness-95" href="simulador.html">
+                Ingresar al simulador
+              </a>
+              <a class="inline-flex items-center justify-center rounded-lg border border-white/25 px-5 py-3 text-sm font-black text-white transition hover:bg-white/10" href="#gestion">
+                Ver impacto empresarial
+              </a>
+            </div>
+          </div>
+
+          <div class="float-in panel rounded-lg p-6 shadow-soft" style="animation-delay: 120ms">
+            <p class="text-xs font-black uppercase text-emerald">Compromiso como servicio</p>
+            <h2 class="mt-3 text-3xl font-black leading-tight text-ink">De la teoría a una acción concreta</h2>
+            <p class="mt-4 text-sm font-bold leading-7 text-steel">
+              Esta página explica el valor. El simulador separado permite diagnosticarlo, compararlo en tres dimensiones y enviar un reto personalizado por correo.
+            </p>
+            <div class="mt-6 grid gap-3">
+              <div class="rounded-lg bg-cloud p-4">
+                <p class="text-sm font-black text-ink">1. Comprender</p>
+                <p class="mt-1 text-sm leading-6 text-steel">Qué significa cumplir una promesa en administración.</p>
+              </div>
+              <div class="rounded-lg bg-cloud p-4">
+                <p class="text-sm font-black text-ink">2. Medir</p>
+                <p class="mt-1 text-sm leading-6 text-steel">Evaluar cumplimiento, comunicación y valor agregado.</p>
+              </div>
+              <div class="rounded-lg bg-cloud p-4">
+                <p class="text-sm font-black text-ink">3. Activar</p>
+                <p class="mt-1 text-sm leading-6 text-steel">Recibir una tarea práctica para convertir la intención en resultado.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="servicio" class="bg-white py-16 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <p class="text-sm font-black uppercase text-coral">Compromiso como servicio</p>
+              <h2 class="mt-3 text-3xl font-black leading-tight text-ink sm:text-4xl">Una experiencia que convierte un valor en acción</h2>
+              <p class="mt-5 text-base leading-8 text-steel">
+                En esta feria, el compromiso no se presenta solo como teoría. Se ofrece como un servicio de orientación: el visitante entiende el valor, se diagnostica, recibe una lectura de sus dimensiones y termina con una tarea concreta para practicarlo.
+              </p>
+              <a class="mt-7 inline-flex items-center justify-center rounded-lg bg-ink px-5 py-3 text-sm font-black text-white transition hover:bg-graphite" href="simulador.html">
+                Probar el servicio
+              </a>
+            </div>
+
+            <div class="grid gap-4 sm:grid-cols-2">
+              <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+                <p class="text-xs font-black uppercase text-emerald">Necesidad</p>
+                <h3 class="mt-3 text-xl font-black text-ink">Pasar de intención a hábito</h3>
+                <p class="mt-3 text-sm leading-7 text-steel">Muchas personas saben que deben cumplir, pero necesitan una guía breve para convertir esa idea en una acción diaria.</p>
+              </article>
+              <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+                <p class="text-xs font-black uppercase text-cyan">Servicio</p>
+                <h3 class="mt-3 text-xl font-black text-ink">Diagnóstico y reto</h3>
+                <p class="mt-3 text-sm leading-7 text-steel">El simulador mide cumplimiento, comunicación y valor agregado, y entrega un reto práctico según el resultado.</p>
+              </article>
+              <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+                <p class="text-xs font-black uppercase text-amber">Evidencia</p>
+                <h3 class="mt-3 text-xl font-black text-ink">Resultado enviado</h3>
+                <p class="mt-3 text-sm leading-7 text-steel">El usuario puede recibir por correo su diagnóstico, su índice y el compromiso del día para recordarlo después.</p>
+              </article>
+              <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+                <p class="text-xs font-black uppercase text-coral">Valor</p>
+                <h3 class="mt-3 text-xl font-black text-ink">Mejor coordinación</h3>
+                <p class="mt-3 text-sm leading-7 text-steel">La experiencia ayuda a formar personas más confiables, equipos más productivos y acuerdos mejor gestionados.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="definicion" class="py-16 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
+            <div>
+              <p class="text-sm font-black uppercase text-emerald">Definición y clasificación</p>
+              <h2 class="mt-3 text-3xl font-black leading-tight text-ink sm:text-4xl">El compromiso convierte una intención en una conducta verificable</h2>
+              <p class="mt-5 text-base leading-8 text-steel">
+                En la gestión administrativa, compromiso significa asumir una obligación con claridad, cuidar su cumplimiento y responder por los resultados acordados. Se desarrolla cuando una persona conecta propósito, disciplina y responsabilidad social.
+              </p>
+            </div>
+
+            <div class="grid gap-4 md:grid-cols-3">
+              <article class="panel rounded-lg p-5 shadow-soft">
+                <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-emerald/10 text-emerald">
+                  <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-black text-ink">Personal</h3>
+                <p class="mt-3 text-sm leading-7 text-steel">Nace de la autodisciplina: prometer menos, cumplir mejor y sostener hábitos incluso sin supervisión.</p>
+              </article>
+              <article class="panel rounded-lg p-5 shadow-soft">
+                <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-cyan/10 text-cyan">
+                  <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 12h8M12 8v8M4 6h16v12H4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-black text-ink">Organizacional</h3>
+                <p class="mt-3 text-sm leading-7 text-steel">Se expresa en metas compartidas, seguimiento de tareas, cuidado del tiempo y comunicación oportuna.</p>
+              </article>
+              <article class="panel rounded-lg p-5 shadow-soft">
+                <div class="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-amber/20 text-amber">
+                  <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3l7 4v5c0 5-3 8-7 9-4-1-7-4-7-9V7l7-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-black text-ink">Ético</h3>
+                <p class="mt-3 text-sm leading-7 text-steel">Protege la confianza: quien se compromete responde por el efecto de sus decisiones en otros.</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="mt-10 grid gap-4 lg:grid-cols-4">
+            <div class="rounded-lg bg-ink p-5 text-white">
+              <p class="text-xs font-black uppercase text-amber">Se desarrolla con</p>
+              <p class="mt-3 text-xl font-black">Propósito claro</p>
+            </div>
+            <div class="rounded-lg bg-white p-5 shadow-soft">
+              <p class="text-xs font-black uppercase text-coral">Paso 1</p>
+              <p class="mt-3 font-black text-ink">Definir la promesa</p>
+              <p class="mt-2 text-sm leading-6 text-steel">Qué se hará, para cuándo y con qué criterio de calidad.</p>
+            </div>
+            <div class="rounded-lg bg-white p-5 shadow-soft">
+              <p class="text-xs font-black uppercase text-coral">Paso 2</p>
+              <p class="mt-3 font-black text-ink">Hacer seguimiento</p>
+              <p class="mt-2 text-sm leading-6 text-steel">Medir avances, avisar riesgos y ajustar recursos a tiempo.</p>
+            </div>
+            <div class="rounded-lg bg-white p-5 shadow-soft">
+              <p class="text-xs font-black uppercase text-coral">Paso 3</p>
+              <p class="mt-3 font-black text-ink">Responder por el cierre</p>
+              <p class="mt-2 text-sm leading-6 text-steel">Entregar, aprender y dejar evidencia para mejorar el próximo ciclo.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gestion" class="bg-white py-16 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-center">
+            <div>
+              <p class="text-sm font-black uppercase text-coral">Impacto en la gestión</p>
+              <h2 class="mt-3 text-3xl font-black leading-tight text-ink sm:text-4xl">Cuando el compromiso sube, la coordinación deja de depender de la presión</h2>
+              <p class="mt-5 text-base leading-8 text-steel">
+                En una empresa, las personas comprometidas reducen fricciones: cumplen acuerdos, comunican bloqueos, cuidan recursos y fortalecen la confianza. Esa armonía permite que los equipos usen más energía en crear valor y menos en corregir incumplimientos.
+              </p>
+            </div>
+
+            <div class="rounded-lg bg-ink p-6 text-white shadow-soft">
+              <div class="grid gap-4 sm:grid-cols-3">
+                <div class="rounded-lg bg-white/10 p-4 text-center">
+                  <p class="text-4xl font-black">1</p>
+                  <p class="mt-1 text-xs font-bold uppercase text-slate-300">Persona A</p>
+                </div>
+                <div class="grid place-items-center rounded-lg bg-amber p-4 text-center text-ink">
+                  <p class="text-5xl font-black">+</p>
+                </div>
+                <div class="rounded-lg bg-white/10 p-4 text-center">
+                  <p class="text-4xl font-black">1</p>
+                  <p class="mt-1 text-xs font-bold uppercase text-slate-300">Persona B</p>
+                </div>
+              </div>
+              <div class="mt-4 rounded-lg border border-emerald/40 bg-emerald/15 p-5 text-center">
+                <p class="text-5xl font-black text-emerald">> 2</p>
+                <p class="mt-3 text-sm font-bold leading-7 text-slate-100">
+                  La sinergia ocurre cuando el trabajo coordinado produce más valor que la suma aislada de esfuerzos.
+                </p>
+              </div>
+              <div class="mt-4 rounded-lg bg-white/10 p-5">
+                <p class="text-sm font-bold leading-7 text-slate-200">
+                  El 100% cumple la tarea. El 101% agrega una idea, anticipa un riesgo, ayuda a otro proceso o deja el camino más claro para el equipo.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+            <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+              <h3 class="font-black text-ink">Armonía</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Los acuerdos claros reducen reprocesos, conflictos y desgaste emocional.</p>
+            </article>
+            <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+              <h3 class="font-black text-ink">Productividad</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">El cumplimiento constante mejora tiempos de entrega y calidad operativa.</p>
+            </article>
+            <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+              <h3 class="font-black text-ink">Confianza</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">La palabra cumplida se convierte en reputación profesional.</p>
+            </article>
+            <article class="rounded-lg border border-slate-200 bg-cloud p-5">
+              <h3 class="font-black text-ink">Aprendizaje</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Quien se compromete documenta resultados y mejora el siguiente ciclo.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="dimensiones" class="py-16 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-3xl text-center">
+            <p class="text-sm font-black uppercase text-emerald">Dimensiones de vida</p>
+            <h2 class="mt-3 text-3xl font-black leading-tight text-ink sm:text-4xl">El compromiso se practica antes de llegar a la oficina</h2>
+          </div>
+
+          <div class="mt-10 grid gap-5 lg:grid-cols-3">
+            <article class="panel rounded-lg p-6 shadow-soft">
+              <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-cyan/10 text-cyan">
+                <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 11a4 4 0 118 0M4 20a8 8 0 0116 0" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-black text-ink">Social</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Construye convivencia: cumplir horarios, respetar normas y participar en proyectos colectivos mejora la confianza ciudadana.</p>
+              <button class="dimension-toggle mt-5 rounded-lg border border-slate-200 px-4 py-2 text-sm font-black text-ink transition hover:bg-slate-100" type="button" data-target="socialDetail">Ver ejemplo</button>
+              <p id="socialDetail" class="mt-4 hidden rounded-lg bg-cloud p-4 text-sm leading-7 text-steel">Ejemplo: asumir un rol en una actividad comunitaria y entregar evidencias sin esperar recordatorios.</p>
+            </article>
+
+            <article class="panel rounded-lg p-6 shadow-soft">
+              <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-coral/10 text-coral">
+                <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M4 10l8-6 8 6v9H4zM9 19v-6h6v6" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-black text-ink">Familiar</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Ordena responsabilidades compartidas: la familia funciona mejor cuando cada persona cumple lo que prometió.</p>
+              <button class="dimension-toggle mt-5 rounded-lg border border-slate-200 px-4 py-2 text-sm font-black text-ink transition hover:bg-slate-100" type="button" data-target="familyDetail">Ver ejemplo</button>
+              <p id="familyDetail" class="mt-4 hidden rounded-lg bg-cloud p-4 text-sm leading-7 text-steel">Ejemplo: avisar a tiempo si no se puede cumplir una tarea del hogar y proponer una solución concreta.</p>
+            </article>
+
+            <article class="panel rounded-lg p-6 shadow-soft">
+              <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-amber/20 text-amber">
+                <svg aria-hidden="true" class="h-6 w-6" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 4l9 5-9 5-9-5 9-5zM6 12v5c2 2 10 2 12 0v-5" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-black text-ink">Académico</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Eleva el desempeño: puntualidad, estudio previo y participación responsable convierten al grupo en una unidad confiable.</p>
+              <button class="dimension-toggle mt-5 rounded-lg border border-slate-200 px-4 py-2 text-sm font-black text-ink transition hover:bg-slate-100" type="button" data-target="academicDetail">Ver ejemplo</button>
+              <p id="academicDetail" class="mt-4 hidden rounded-lg bg-cloud p-4 text-sm leading-7 text-steel">Ejemplo: aportar una fuente adicional al trabajo en equipo aunque la tarea mínima ya esté cubierta.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="diccionario" class="bg-ink py-16 text-white sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
+            <div>
+              <p class="text-sm font-black uppercase text-amber">Diccionario de lecciones</p>
+              <h2 class="mt-3 text-3xl font-black leading-tight sm:text-4xl">Casos rápidos para hablar de compromiso en administración</h2>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-[1fr_auto]">
+              <label class="sr-only" for="caseSearch">Buscar caso</label>
+              <input id="caseSearch" class="h-12 rounded-lg border border-white/15 bg-white/10 px-4 text-sm font-bold text-white outline-none placeholder:text-slate-400 focus:border-amber" type="search" placeholder="Buscar por palabra clave" />
+              <div class="flex gap-2">
+                <button class="filter-btn rounded-lg bg-amber px-4 py-3 text-sm font-black text-ink" type="button" data-filter="todos">Todos</button>
+                <button class="filter-btn rounded-lg bg-white/10 px-4 py-3 text-sm font-black text-white" type="button" data-filter="equipo">Equipo</button>
+                <button class="filter-btn rounded-lg bg-white/10 px-4 py-3 text-sm font-black text-white" type="button" data-filter="gestion">Gestión</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="caseGrid" class="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <article class="case-card rounded-lg bg-white p-5 text-ink" data-category="gestion" data-text="informe cierre seguimiento indicador gestion">
+              <span class="rounded-lg bg-coral/10 px-3 py-1 text-xs font-black uppercase text-coral">Gestión</span>
+              <h3 class="mt-4 text-xl font-black">Informe que no llega</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Un analista detecta retraso en un informe financiero. El compromiso no es quedarse callado: avisa el riesgo, reordena prioridades y propone una fecha realista con entregables parciales.</p>
+              <p class="mt-4 text-sm font-black text-ink">Lección: cumplir también es comunicar antes de fallar.</p>
+            </article>
+
+            <article class="case-card rounded-lg bg-white p-5 text-ink" data-category="equipo" data-text="grupo estudio idea extra equipo 101">
+              <span class="rounded-lg bg-emerald/10 px-3 py-1 text-xs font-black uppercase text-emerald">Equipo</span>
+              <h3 class="mt-4 text-xl font-black">El 101% en clase</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">El grupo ya tiene la exposición lista, pero una estudiante agrega una matriz de riesgos para explicar mejor el caso. No reemplaza la tarea: aumenta su valor.</p>
+              <p class="mt-4 text-sm font-black text-ink">Lección: valor agregado es mejorar el resultado común.</p>
+            </article>
+
+            <article class="case-card rounded-lg bg-white p-5 text-ink" data-category="gestion" data-text="cliente proveedor promesa servicio confianza">
+              <span class="rounded-lg bg-cyan/10 px-3 py-1 text-xs font-black uppercase text-cyan">Servicio</span>
+              <h3 class="mt-4 text-xl font-black">Promesa al cliente</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Un proveedor ofrece entrega el viernes. Si sabe que no llegará, el compromiso exige informar el miércoles, no justificar el lunes siguiente.</p>
+              <p class="mt-4 text-sm font-black text-ink">Lección: la confianza se protege con anticipación.</p>
+            </article>
+
+            <article class="case-card rounded-lg bg-white p-5 text-ink" data-category="equipo" data-text="sinergia reunion decisiones colaboracion">
+              <span class="rounded-lg bg-amber/20 px-3 py-1 text-xs font-black uppercase text-amber">Sinergia</span>
+              <h3 class="mt-4 text-xl font-black">Reunión que produce</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Cada integrante llega con datos revisados. La reunión se usa para decidir, no para explicar lo que todos debían leer. El resultado supera el esfuerzo individual.</p>
+              <p class="mt-4 text-sm font-black text-ink">Lección: prepararse es respetar el tiempo del equipo.</p>
+            </article>
+
+            <article class="case-card rounded-lg bg-white p-5 text-ink" data-category="gestion" data-text="lider seguimiento tablero control responsabilidad">
+              <span class="rounded-lg bg-coral/10 px-3 py-1 text-xs font-black uppercase text-coral">Liderazgo</span>
+              <h3 class="mt-4 text-xl font-black">Tablero de compromisos</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Un líder registra responsables, fechas y estado de cada acuerdo. El seguimiento evita ambigüedad y convierte promesas en acción medible.</p>
+              <p class="mt-4 text-sm font-black text-ink">Lección: lo que se mide se puede cumplir mejor.</p>
+            </article>
+
+            <article class="case-card rounded-lg bg-white p-5 text-ink" data-category="equipo" data-text="conflicto responsabilidad error solucion">
+              <span class="rounded-lg bg-emerald/10 px-3 py-1 text-xs font-black uppercase text-emerald">Responsabilidad</span>
+              <h3 class="mt-4 text-xl font-black">Error reconocido</h3>
+              <p class="mt-3 text-sm leading-7 text-steel">Una persona entrega tarde una parte del proyecto. En lugar de culpar al contexto, reconoce el error, corrige y plantea una regla para evitar repetición.</p>
+              <p class="mt-4 text-sm font-black text-ink">Lección: compromiso sin responsabilidad es solo intención.</p>
+            </article>
+          </div>
+          <p id="emptyCases" class="lesson-empty mt-8 rounded-lg border border-white/15 bg-white/10 p-5 text-sm font-bold text-slate-200" hidden>No hay casos con ese criterio.</p>
+        </div>
+      </section>
+
+      <section class="py-16 sm:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="rounded-lg bg-ink p-8 text-white shadow-soft sm:p-10">
+            <div class="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <p class="text-sm font-black uppercase text-amber">Siguiente paso</p>
+                <h2 class="mt-3 text-3xl font-black leading-tight sm:text-4xl">Pase de la explicación al diagnóstico</h2>
+                <p class="mt-4 max-w-3xl text-sm font-bold leading-7 text-slate-200">
+                  El simulador permite que cada visitante compare sus dimensiones de compromiso y reciba un reto por correo.
+                </p>
+              </div>
+              <a class="inline-flex items-center justify-center rounded-lg bg-amber px-5 py-3 text-sm font-black text-ink transition hover:brightness-95" href="simulador.html">
+                Ingresar al simulador
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <a
+      class="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-lg bg-amber px-4 py-3 text-sm font-black text-ink shadow-soft transition hover:brightness-95 focus:outline-none focus:ring-4 focus:ring-amber/40 sm:bottom-6 sm:right-6"
+      href="simulador.html"
+      aria-label="Ingresar al simulador de compromiso"
+    >
+      <svg aria-hidden="true" class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none">
+        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+      <span>Simulador</span>
+    </a>
+
+    <footer class="border-t border-slate-200 bg-white py-8">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm font-bold text-steel sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <p>Feria de las Habilidades · Facultad de Ciencias Económicas</p>
+        <p>Compromiso: palabra, acción y resultado.</p>
+      </div>
+    </footer>
+
+    <script>
+      function highlightCommitmentWords(root = document.body) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            if (parent.closest("script, style, textarea, input, option, .commitment-emphasis")) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return /\bcompromisos?\b/i.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+          },
+        });
+
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+        textNodes.forEach((node) => {
+          const fragment = document.createDocumentFragment();
+          const parts = node.nodeValue.split(/(\bcompromisos?\b)/gi);
+
+          parts.forEach((part) => {
+            if (/^compromisos?$/i.test(part)) {
+              const emphasis = document.createElement("span");
+              emphasis.className = "commitment-emphasis";
+              emphasis.textContent = part;
+              fragment.appendChild(emphasis);
+            } else if (part) {
+              fragment.appendChild(document.createTextNode(part));
+            }
+          });
+
+          node.replaceWith(fragment);
+        });
+      }
+
+      const menuButton = document.querySelector("#menuButton");
+      const mobilePanel = document.querySelector("#mobilePanel");
+      const navLinks = [...document.querySelectorAll(".nav-link")];
+      const sections = navLinks
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      menuButton.addEventListener("click", () => {
+        const isOpen = !mobilePanel.classList.contains("hidden");
+        mobilePanel.classList.toggle("hidden", isOpen);
+        menuButton.setAttribute("aria-expanded", String(!isOpen));
+      });
+
+      mobilePanel.addEventListener("click", (event) => {
+        if (event.target.closest("a")) {
+          mobilePanel.classList.add("hidden");
+          menuButton.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      const sectionObserver = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((entry) => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+          if (!visible) return;
+
+          navLinks.forEach((link) => {
+            link.classList.toggle("is-active", link.getAttribute("href") === `#${visible.target.id}`);
+          });
+        },
+        { rootMargin: "-35% 0px -50% 0px", threshold: [0.15, 0.35, 0.6] }
+      );
+
+      sections.forEach((section) => sectionObserver.observe(section));
+
+      document.querySelectorAll(".dimension-toggle").forEach((button) => {
+        button.addEventListener("click", () => {
+          const target = document.getElementById(button.dataset.target);
+          target.classList.toggle("hidden");
+          button.textContent = target.classList.contains("hidden") ? "Ver ejemplo" : "Ocultar ejemplo";
+        });
+      });
+
+      const caseSearch = document.querySelector("#caseSearch");
+      const filterButtons = [...document.querySelectorAll(".filter-btn")];
+      const caseCards = [...document.querySelectorAll(".case-card")];
+      const emptyCases = document.querySelector("#emptyCases");
+      let currentFilter = "todos";
+
+      function applyCaseFilters() {
+        const term = caseSearch.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        caseCards.forEach((card) => {
+          const matchesCategory = currentFilter === "todos" || card.dataset.category === currentFilter;
+          const matchesText = !term || card.dataset.text.includes(term) || card.textContent.toLowerCase().includes(term);
+          const isVisible = matchesCategory && matchesText;
+          card.hidden = !isVisible;
+          visibleCount += isVisible ? 1 : 0;
+        });
+
+        emptyCases.hidden = visibleCount !== 0;
+      }
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          currentFilter = button.dataset.filter;
+          filterButtons.forEach((item) => {
+            item.classList.toggle("bg-amber", item === button);
+            item.classList.toggle("text-ink", item === button);
+            item.classList.toggle("bg-white/10", item !== button);
+            item.classList.toggle("text-white", item !== button);
+          });
+          applyCaseFilters();
+        });
+      });
+
+      caseSearch.addEventListener("input", applyCaseFilters);
+      highlightCommitmentWords();
+    </script>
+  </body>
+</html>

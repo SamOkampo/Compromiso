@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Simulador de compromiso 101% con diagnóstico, radar de dimensiones y correo automático."
+    />
+    <title>Simulador de Compromiso | Feria de las Habilidades</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              ink: "#17202A",
+              graphite: "#2E4053",
+              steel: "#4F6275",
+              cloud: "#F4F7FA",
+              amber: "#F2B84B",
+              emerald: "#1F9D78",
+              coral: "#E6695B",
+              cyan: "#34A7C1",
+            },
+            boxShadow: {
+              soft: "0 18px 50px rgba(23, 32, 42, 0.12)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          radial-gradient(circle at 12% 8%, rgba(242, 184, 75, 0.18), transparent 28rem),
+          radial-gradient(circle at 82% 18%, rgba(31, 157, 120, 0.14), transparent 30rem),
+          linear-gradient(135deg, #f4f7fa 0%, #ffffff 48%, #eef5f3 100%);
+        color: #17202a;
+      }
+
+      .panel {
+        border: 1px solid rgba(79, 98, 117, 0.16);
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(18px);
+      }
+
+      .metric-ring {
+        background:
+          conic-gradient(#1f9d78 var(--score), rgba(255, 255, 255, 0.18) 0),
+          linear-gradient(145deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.04));
+      }
+
+      .commitment-range {
+        accent-color: #1f9d78;
+      }
+
+      .commitment-emphasis {
+        color: #f2b84b;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .bg-ink .commitment-emphasis,
+      .simulator-hero .commitment-emphasis {
+        color: #f2b84b;
+      }
+
+      @media (prefers-reduced-motion: no-preference) {
+        .float-in {
+          animation: floatIn 720ms ease both;
+        }
+
+        @keyframes floatIn {
+          from {
+            opacity: 0;
+            transform: translateY(18px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen font-sans antialiased">
+    <header class="sticky top-0 z-50 border-b border-slate-200/70 bg-white/85 backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <a href="index.html" class="flex min-w-0 items-center gap-3" aria-label="Volver al inicio informativo">
+          <span class="flex h-12 w-12 shrink-0 items-center justify-center">
+            <img class="max-h-12 w-auto object-contain" src="assets/logo_unal.png" alt="Logo Universidad Nacional de Colombia" />
+          </span>
+          <span class="min-w-0">
+            <span class="block truncate text-sm font-black uppercase text-ink">Simulador 101%</span>
+            <span class="block truncate text-xs font-semibold text-steel">Compromiso · Feria de las Habilidades</span>
+          </span>
+        </a>
+
+        <div class="hidden items-center gap-2 sm:flex">
+          <a class="rounded-lg px-4 py-2 text-sm font-black text-steel transition hover:bg-slate-100" href="index.html">Inicio informativo</a>
+          <a class="rounded-lg bg-amber px-4 py-2 text-sm font-black text-ink transition hover:brightness-95" href="#correo">Enviar diagnóstico</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="simulator-hero bg-ink text-white">
+        <div class="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-16">
+          <div class="float-in">
+            <p class="text-sm font-black uppercase text-amber">Herramienta de mediación</p>
+            <h1 class="mt-3 text-4xl font-black leading-tight sm:text-5xl">Simulador de compromiso 101%</h1>
+            <p class="mt-5 max-w-2xl text-base font-bold leading-8 text-slate-200">
+              Evalúe cumplimiento, comunicación y valor agregado. Luego envíe el resultado al correo con un reto práctico para activar el compromiso del día.
+            </p>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a class="inline-flex items-center justify-center rounded-lg bg-amber px-5 py-3 text-sm font-black text-ink transition hover:brightness-95" href="#diagnostico">
+                Empezar diagnóstico
+              </a>
+              <a class="inline-flex items-center justify-center rounded-lg border border-white/20 px-5 py-3 text-sm font-black text-white transition hover:bg-white/10" href="index.html">
+                Volver a la teoría
+              </a>
+            </div>
+          </div>
+
+          <div class="float-in grid gap-4 rounded-lg bg-white/10 p-5" style="animation-delay: 120ms">
+            <div class="rounded-lg bg-white p-5 text-ink">
+              <p class="text-xs font-black uppercase text-coral">Cómo usarlo en la feria</p>
+              <p class="mt-3 text-sm font-bold leading-7 text-steel">
+                Una persona responde el diagnóstico, observa su radar, recibe una interpretación y puede enviarse el resultado con un reto de acción.
+              </p>
+            </div>
+            <div class="grid gap-3 sm:grid-cols-3">
+              <div class="rounded-lg bg-white/10 p-4">
+                <p class="text-2xl font-black text-amber">1</p>
+                <p class="mt-1 text-sm font-bold text-slate-200">Mover controles</p>
+              </div>
+              <div class="rounded-lg bg-white/10 p-4">
+                <p class="text-2xl font-black text-amber">2</p>
+                <p class="mt-1 text-sm font-bold text-slate-200">Leer diagnóstico</p>
+              </div>
+              <div class="rounded-lg bg-white/10 p-4">
+                <p class="text-2xl font-black text-amber">3</p>
+                <p class="mt-1 text-sm font-bold text-slate-200">Enviar correo</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="diagnostico" class="py-14 sm:py-16">
+        <div class="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
+          <div class="rounded-lg bg-ink p-5 text-white shadow-soft sm:p-6">
+            <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p class="text-xs font-black uppercase text-amber">Panel de compromiso</p>
+                <h2 class="mt-2 text-2xl font-black">Diagnóstico interactivo</h2>
+              </div>
+              <span id="scoreBadge" class="rounded-lg bg-white/10 px-3 py-2 text-xs font-black text-emerald">86%</span>
+            </div>
+
+            <div class="mt-7 grid gap-4 sm:grid-cols-[12rem_1fr]">
+              <div class="metric-ring grid aspect-square place-items-center rounded-full p-4" style="--score: 86%">
+                <div class="grid h-full w-full place-items-center rounded-full bg-ink text-center">
+                  <span>
+                    <strong id="scoreValue" class="block text-4xl font-black">86</strong>
+                    <span class="text-xs font-bold uppercase text-slate-300">índice</span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="grid gap-4">
+                <div class="rounded-lg bg-white/[0.08] p-4">
+                  <label class="flex items-center justify-between gap-3 text-sm font-bold text-slate-300" for="fulfillmentRange">
+                    <span>Cumplimiento</span>
+                    <output id="fulfillmentValue" class="font-black text-white">86</output>
+                  </label>
+                  <input id="fulfillmentRange" class="commitment-range mt-3 w-full" type="range" min="0" max="100" value="86" data-weight="0.36" />
+                </div>
+                <div class="rounded-lg bg-white/[0.08] p-4">
+                  <label class="flex items-center justify-between gap-3 text-sm font-bold text-slate-300" for="communicationRange">
+                    <span>Comunicación</span>
+                    <output id="communicationValue" class="font-black text-white">84</output>
+                  </label>
+                  <input id="communicationRange" class="commitment-range mt-3 w-full" type="range" min="0" max="100" value="84" data-weight="0.31" />
+                </div>
+                <div class="rounded-lg bg-white/[0.08] p-4">
+                  <label class="flex items-center justify-between gap-3 text-sm font-bold text-slate-300" for="valueRange">
+                    <span>Valor agregado</span>
+                    <output id="valueValue" class="font-black text-white">88</output>
+                  </label>
+                  <input id="valueRange" class="commitment-range mt-3 w-full" type="range" min="0" max="100" value="88" data-weight="0.33" />
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-5 rounded-lg bg-white/[0.08] p-4">
+              <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-sm font-black text-white">Radar de dimensiones</p>
+                <p id="radarSummary" class="text-xs font-bold text-slate-300">Cumplimiento lidera; comunicación es la oportunidad de mejora</p>
+              </div>
+              <svg id="commitmentRadar" class="mt-3 h-56 w-full" viewBox="0 0 260 220" role="img" aria-label="Gráfica radar del diagnóstico de compromiso">
+                <polygon points="130,24 222,178 38,178" fill="none" stroke="rgba(255,255,255,0.16)" stroke-width="1.5"></polygon>
+                <polygon points="130,76 176,153 84,153" fill="none" stroke="rgba(255,255,255,0.13)" stroke-width="1"></polygon>
+                <polygon points="130,128 148,143 112,143" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"></polygon>
+                <line x1="130" y1="128" x2="130" y2="24" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
+                <line x1="130" y1="128" x2="222" y2="178" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
+                <line x1="130" y1="128" x2="38" y2="178" stroke="rgba(255,255,255,0.14)" stroke-width="1"></line>
+                <polygon id="radarShape" points="" fill="rgba(31,157,120,0.38)" stroke="#1F9D78" stroke-width="3"></polygon>
+                <circle id="radarPointFulfillment" r="4.5" fill="#F2B84B"></circle>
+                <circle id="radarPointCommunication" r="4.5" fill="#34A7C1"></circle>
+                <circle id="radarPointValue" r="4.5" fill="#E6695B"></circle>
+                <text x="130" y="15" text-anchor="middle" fill="#ffffff" font-size="12" font-weight="800">Cumplimiento</text>
+                <text x="234" y="193" text-anchor="end" fill="#ffffff" font-size="12" font-weight="800">Comunicación</text>
+                <text x="26" y="193" text-anchor="start" fill="#ffffff" font-size="12" font-weight="800">Valor agregado</text>
+              </svg>
+            </div>
+
+            <div class="mt-6 grid gap-3 sm:grid-cols-3">
+              <label class="flex min-h-[4.5rem] cursor-pointer items-start gap-3 rounded-lg bg-white/10 p-3 text-sm font-bold text-slate-200 transition hover:bg-white/15">
+                <input class="commitment-bonus mt-1 h-4 w-4 shrink-0 accent-[#1F9D78]" type="checkbox" data-bonus="3" />
+                <span>Anticipo riesgos antes del plazo</span>
+              </label>
+              <label class="flex min-h-[4.5rem] cursor-pointer items-start gap-3 rounded-lg bg-white/10 p-3 text-sm font-bold text-slate-200 transition hover:bg-white/15">
+                <input class="commitment-bonus mt-1 h-4 w-4 shrink-0 accent-[#1F9D78]" type="checkbox" data-bonus="3" />
+                <span>Dejo evidencia clara del avance</span>
+              </label>
+              <label class="flex min-h-[4.5rem] cursor-pointer items-start gap-3 rounded-lg bg-white/10 p-3 text-sm font-bold text-slate-200 transition hover:bg-white/15">
+                <input class="commitment-bonus mt-1 h-4 w-4 shrink-0 accent-[#1F9D78]" type="checkbox" data-bonus="4" />
+                <span>Ayudo al equipo sin que me lo pidan</span>
+              </label>
+            </div>
+
+            <div class="mt-4 rounded-lg bg-white/[0.08] p-4">
+              <p id="scoreLabel" class="text-sm font-black text-white">Compromiso confiable</p>
+              <p id="scoreInsight" class="mt-2 min-h-[3.5rem] text-sm font-bold leading-7 text-slate-300">
+                Cumple acuerdos y sostiene la confianza. El siguiente salto está en anticipar riesgos y aportar una mejora visible.
+              </p>
+              <div class="mt-4 grid gap-3 sm:grid-cols-[1fr_auto_auto]">
+                <p id="panelChallengeText" class="rounded-lg bg-ink/70 p-3 text-sm font-bold leading-7 text-slate-200">
+                  Reto sugerido: aportar una idea extra en tu grupo de estudio.
+                </p>
+                <button id="panelChallenge" class="rounded-lg bg-amber px-4 py-3 text-sm font-black text-ink transition hover:brightness-95" type="button">
+                  Generar reto
+                </button>
+                <button id="resetDiagnosis" class="rounded-lg border border-white/20 px-4 py-3 text-sm font-black text-white transition hover:bg-white/10" type="button">
+                  Reiniciar diagnóstico
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <section id="correo" class="panel rounded-lg p-6 shadow-soft sm:p-8">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs font-black uppercase text-amber">Correo automático</p>
+                <h2 class="mt-2 text-2xl font-black text-ink">Enviar resultado</h2>
+              </div>
+              <span class="rounded-lg bg-emerald/10 px-3 py-2 text-xs font-black text-emerald">Resend</span>
+            </div>
+
+            <p class="mt-5 text-sm font-bold leading-7 text-steel">
+              El correo incluye el reto sugerido, el índice final, las tres dimensiones del radar y los hábitos marcados.
+            </p>
+
+            <form id="commitmentForm" class="mt-7">
+              <label class="block text-sm font-black text-ink" for="email">Correo electrónico</label>
+              <div class="mt-3 grid gap-3 sm:grid-cols-[1fr_auto]">
+                <input
+                  id="email"
+                  name="email"
+                  class="h-12 rounded-lg border border-slate-200 bg-white px-4 text-sm font-bold text-ink outline-none transition placeholder:text-slate-400 focus:border-emerald focus:ring-4 focus:ring-emerald/10"
+                  type="email"
+                  placeholder="nombre@unal.edu.co"
+                  autocomplete="email"
+                  required
+                />
+                <button id="submitButton" class="h-12 rounded-lg bg-ink px-5 text-sm font-black text-white transition hover:bg-graphite disabled:cursor-not-allowed disabled:opacity-60" type="submit">
+                  Enviar
+                </button>
+              </div>
+            </form>
+
+            <div id="formStatus" class="mt-5 rounded-lg border border-slate-200 bg-cloud p-4 text-sm font-bold leading-7 text-steel" role="status" aria-live="polite">
+              Ingrese un correo para recibir el diagnóstico y una tarea aleatoria.
+            </div>
+
+            <div class="mt-6 rounded-lg bg-ink p-5 text-white">
+              <p class="text-xs font-black uppercase text-amber">Vista del mensaje</p>
+              <p class="mt-3 text-sm leading-7 text-slate-200">
+                Este es tu recordatorio de compromiso: <span id="previewTask" class="font-black text-white">Aportar una idea extra en tu grupo de estudio</span>. Recuerda que en administración, tu capacidad de cumplir determina tu éxito y el de tu equipo. ¡Haz que pase!
+              </p>
+              <button id="shufflePreview" class="mt-4 rounded-lg border border-white/20 px-4 py-2 text-sm font-black text-white transition hover:bg-white/10" type="button">
+                Cambiar tarea
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-200 bg-white py-8">
+      <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 text-sm font-bold text-steel sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+        <p>Feria de las Habilidades · Facultad de Ciencias Económicas</p>
+        <p>Simulador de compromiso 101%</p>
+      </div>
+    </footer>
+
+    <script>
+      const commitmentTasks = [
+        "Terminar un informe pendiente",
+        "Llegar 5 minutos antes a tu próxima cita",
+        "Aportar una idea extra en tu grupo de estudio",
+        "Confirmar por escrito un acuerdo importante",
+        "Ayudar a un compañero a desbloquear una tarea",
+      ];
+      let selectedCommitmentTask = commitmentTasks[2];
+
+      function highlightCommitmentWords(root = document.body) {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+          acceptNode(node) {
+            const parent = node.parentElement;
+            if (!parent) return NodeFilter.FILTER_REJECT;
+            if (parent.closest("script, style, textarea, input, option, .commitment-emphasis")) {
+              return NodeFilter.FILTER_REJECT;
+            }
+            return /\bcompromisos?\b/i.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+          },
+        });
+
+        const textNodes = [];
+        while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+        textNodes.forEach((node) => {
+          const fragment = document.createDocumentFragment();
+          const parts = node.nodeValue.split(/(\bcompromisos?\b)/gi);
+
+          parts.forEach((part) => {
+            if (/^compromisos?$/i.test(part)) {
+              const emphasis = document.createElement("span");
+              emphasis.className = "commitment-emphasis";
+              emphasis.textContent = part;
+              fragment.appendChild(emphasis);
+            } else if (part) {
+              fragment.appendChild(document.createTextNode(part));
+            }
+          });
+
+          node.replaceWith(fragment);
+        });
+      }
+
+      const commitmentRanges = [...document.querySelectorAll(".commitment-range")];
+      const commitmentBonuses = [...document.querySelectorAll(".commitment-bonus")];
+      const metricRing = document.querySelector(".metric-ring");
+      const scoreValue = document.querySelector("#scoreValue");
+      const scoreBadge = document.querySelector("#scoreBadge");
+      const scoreLabel = document.querySelector("#scoreLabel");
+      const scoreInsight = document.querySelector("#scoreInsight");
+      const panelChallenge = document.querySelector("#panelChallenge");
+      const panelChallengeText = document.querySelector("#panelChallengeText");
+      const resetDiagnosis = document.querySelector("#resetDiagnosis");
+      const radarShape = document.querySelector("#radarShape");
+      const radarSummary = document.querySelector("#radarSummary");
+      const radarPoints = {
+        fulfillment: document.querySelector("#radarPointFulfillment"),
+        communication: document.querySelector("#radarPointCommunication"),
+        value: document.querySelector("#radarPointValue"),
+      };
+      const radarAxes = {
+        fulfillment: { x: 130, y: 24 },
+        communication: { x: 222, y: 178 },
+        value: { x: 38, y: 178 },
+      };
+      const radarCenter = { x: 130, y: 128 };
+
+      function randomTask() {
+        return commitmentTasks[Math.floor(Math.random() * commitmentTasks.length)];
+      }
+
+      function scoreState(score) {
+        if (score < 70) {
+          return {
+            label: "Compromiso en riesgo",
+            insight: "Hay acuerdos frágiles. Conviene elegir una promesa pequeña, poner fecha y avisar cualquier bloqueo antes de que se vuelva incumplimiento.",
+          };
+        }
+
+        if (score < 85) {
+          return {
+            label: "Compromiso en desarrollo",
+            insight: "La base existe, pero todavía depende de recordatorios. El avance está en cerrar tareas con evidencia y comunicar el estado sin esperar presión.",
+          };
+        }
+
+        if (score < 96) {
+          return {
+            label: "Compromiso confiable",
+            insight: "Cumple acuerdos y sostiene la confianza. El siguiente salto está en anticipar riesgos y aportar una mejora visible.",
+          };
+        }
+
+        return {
+          label: "Compromiso 101%",
+          insight: "El compromiso ya genera valor agregado: no solo cumple, también mejora el resultado del equipo y deja el proceso más fuerte.",
+        };
+      }
+
+      function getDimensionValues() {
+        return {
+          fulfillment: Number(document.querySelector("#fulfillmentRange").value),
+          communication: Number(document.querySelector("#communicationRange").value),
+          value: Number(document.querySelector("#valueRange").value),
+        };
+      }
+
+      function pointOnRadar(axis, value) {
+        const percent = Math.max(0, Math.min(100, value)) / 100;
+        return {
+          x: radarCenter.x + (radarAxes[axis].x - radarCenter.x) * percent,
+          y: radarCenter.y + (radarAxes[axis].y - radarCenter.y) * percent,
+        };
+      }
+
+      function updateRadar(values) {
+        const fulfillmentPoint = pointOnRadar("fulfillment", values.fulfillment);
+        const communicationPoint = pointOnRadar("communication", values.communication);
+        const valuePoint = pointOnRadar("value", values.value);
+        const polygon = [fulfillmentPoint, communicationPoint, valuePoint]
+          .map((point) => `${point.x.toFixed(1)},${point.y.toFixed(1)}`)
+          .join(" ");
+
+        radarShape.setAttribute("points", polygon);
+        radarPoints.fulfillment.setAttribute("cx", fulfillmentPoint.x);
+        radarPoints.fulfillment.setAttribute("cy", fulfillmentPoint.y);
+        radarPoints.communication.setAttribute("cx", communicationPoint.x);
+        radarPoints.communication.setAttribute("cy", communicationPoint.y);
+        radarPoints.value.setAttribute("cx", valuePoint.x);
+        radarPoints.value.setAttribute("cy", valuePoint.y);
+
+        const entries = [
+          ["Cumplimiento", values.fulfillment],
+          ["Comunicación", values.communication],
+          ["Valor agregado", values.value],
+        ];
+        const strongest = entries.reduce((best, item) => (item[1] > best[1] ? item : best), entries[0]);
+        const lowest = entries.reduce((low, item) => (item[1] < low[1] ? item : low), entries[0]);
+        radarSummary.textContent = `${strongest[0]} lidera; ${lowest[0]} es la oportunidad de mejora`;
+      }
+
+      function updateCommitmentPanel() {
+        const dimensions = getDimensionValues();
+        const baseScore = commitmentRanges.reduce((total, input) => {
+          const value = Number(input.value);
+          const output = document.querySelector(`#${input.id.replace("Range", "Value")}`);
+          if (output) output.textContent = value;
+          return total + value * Number(input.dataset.weight);
+        }, 0);
+
+        const bonusScore = commitmentBonuses.reduce((total, input) => {
+          return total + (input.checked ? Number(input.dataset.bonus) : 0);
+        }, 0);
+
+        const score = Math.min(101, Math.round(baseScore + bonusScore));
+        const state = scoreState(score);
+
+        metricRing.style.setProperty("--score", `${Math.min(score, 100)}%`);
+        scoreValue.textContent = score;
+        scoreBadge.textContent = `${score}%`;
+        scoreLabel.textContent = state.label;
+        scoreInsight.textContent = state.insight;
+        updateRadar(dimensions);
+        highlightCommitmentWords(scoreLabel);
+        highlightCommitmentWords(scoreInsight);
+      }
+
+      function getCurrentDiagnosis() {
+        const dimensions = getDimensionValues();
+        return {
+          score: Number(scoreValue.textContent),
+          label: scoreLabel.textContent,
+          insight: scoreInsight.textContent,
+          task: selectedCommitmentTask,
+          dimensions: {
+            cumplimiento: dimensions.fulfillment,
+            comunicacion: dimensions.communication,
+            valorAgregado: dimensions.value,
+          },
+          habits: commitmentBonuses
+            .filter((input) => input.checked)
+            .map((input) => input.closest("label").textContent.trim()),
+        };
+      }
+
+      commitmentRanges.forEach((input) => input.addEventListener("input", updateCommitmentPanel));
+      commitmentBonuses.forEach((input) => input.addEventListener("change", updateCommitmentPanel));
+
+      panelChallenge.addEventListener("click", () => {
+        selectedCommitmentTask = randomTask();
+        panelChallengeText.textContent = `Reto sugerido: ${selectedCommitmentTask}.`;
+        document.querySelector("#previewTask").textContent = selectedCommitmentTask;
+      });
+
+      resetDiagnosis.addEventListener("click", () => {
+        document.querySelector("#fulfillmentRange").value = 86;
+        document.querySelector("#communicationRange").value = 84;
+        document.querySelector("#valueRange").value = 88;
+        commitmentBonuses.forEach((input) => {
+          input.checked = false;
+        });
+        selectedCommitmentTask = commitmentTasks[2];
+        panelChallengeText.textContent = "Reto sugerido: aportar una idea extra en tu grupo de estudio.";
+        document.querySelector("#previewTask").textContent = selectedCommitmentTask;
+        document.querySelector("#email").value = "";
+        const statusElement = document.querySelector("#formStatus");
+        statusElement.textContent = "Ingrese un correo para recibir el diagnóstico y una tarea aleatoria.";
+        statusElement.className = "mt-5 rounded-lg border border-slate-200 bg-cloud p-4 text-sm font-bold leading-7 text-steel";
+        highlightCommitmentWords(statusElement);
+        updateCommitmentPanel();
+      });
+
+      const previewTask = document.querySelector("#previewTask");
+      const shufflePreview = document.querySelector("#shufflePreview");
+      const form = document.querySelector("#commitmentForm");
+      const statusBox = document.querySelector("#formStatus");
+      const submitButton = document.querySelector("#submitButton");
+
+      shufflePreview.addEventListener("click", () => {
+        selectedCommitmentTask = randomTask();
+        previewTask.textContent = selectedCommitmentTask;
+        panelChallengeText.textContent = `Reto sugerido: ${selectedCommitmentTask}.`;
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const email = new FormData(form).get("email").trim();
+
+        submitButton.disabled = true;
+        statusBox.textContent = "Enviando recordatorio de compromiso...";
+        statusBox.className = "mt-5 rounded-lg border border-slate-200 bg-cloud p-4 text-sm font-bold leading-7 text-steel";
+        highlightCommitmentWords(statusBox);
+
+        try {
+          const response = await fetch("/api/commitment", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              email,
+              task: selectedCommitmentTask,
+              diagnostic: getCurrentDiagnosis(),
+            }),
+          });
+
+          const result = await response.json().catch(() => ({}));
+
+          if (!response.ok) {
+            throw new Error(result.message || "No se pudo enviar el correo.");
+          }
+
+          selectedCommitmentTask = result.task || selectedCommitmentTask;
+          previewTask.textContent = selectedCommitmentTask;
+          statusBox.textContent = `Listo. Se envió el Compromiso del Día a ${email}.`;
+          statusBox.className = "mt-5 rounded-lg border border-emerald/30 bg-emerald/10 p-4 text-sm font-black leading-7 text-emerald";
+          highlightCommitmentWords(statusBox);
+          form.reset();
+        } catch (error) {
+          statusBox.textContent = `${error.message} Revise que la función /api/commitment esté desplegada y que RESEND_API_KEY esté configurada.`;
+          statusBox.className = "mt-5 rounded-lg border border-coral/30 bg-coral/10 p-4 text-sm font-black leading-7 text-coral";
+          highlightCommitmentWords(statusBox);
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      updateCommitmentPanel();
+      highlightCommitmentWords();
+    </script>
+  </body>
+</html>

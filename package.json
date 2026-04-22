@@ -1,0 +1,13 @@
+{
+  "name": "feria-habilidades-compromiso",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx vercel dev",
+    "start": "npx vercel dev"
+  },
+  "dependencies": {
+    "resend": "^6.5.2"
+  }
+}
